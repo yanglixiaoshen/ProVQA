@@ -1,0 +1,210 @@
+
+#########################################################################################################################################################
+### Compared algorithms preparation on yl and BIT dataset
+### Li Yang, <13021041@buaa.edu.cn 0r LiYang2018@buaa.edu.cn>, Beihang university, 2021.08.
+#########################################################################################################################################################
+
+##########################################  Blind visual quality assessment on 2D or 360 videos #########################################################
+
+#### 1. NR-OVQA 2. VIDEVAL 3. V-MEON 4. VSFA 5. TLVQM 6. NSTSS-3D-MSCN 7. NSTSS-ST_Gabor 8. NSTSS-Plus ############
+
+##########################################  FR or blind visual quality assessment on 360 images #########################################################
+
+#### 1. S-PSNR 2. WS-PSNR 3. CPP-PSNR 4. WS-SSIM 5. VGCN 6. MC360IQA ##############################################
+
+#########################################################################################################################################################
+
+
+1. NR-OVQA   《Blind quality assessment of omnidirectional videos using spatio-temporal convolutional neural networks》, Optic 2021
+
+# Train and Test:
+
+## code: /home/yl/NR-OVQA ; data: /media/yl/yl_8t/data_bvqa_lc_resize/data_NROVQA_cmp_png or /media/yl/yl_8t/data_vqa_BIT/compared_algo_data_process/data_NROVQA_cmp_png;
+## results: /media/yl/yl_8t/data_bvqa_lc_resize/NR-OVQA_models or /media/yl/yl_8t/data_bvqa_lc_resize/NR-OVQA_models/BIT_dataset_results
+## envs: host401 -- bvqa
+
+(1) 制作训练测试时所需的matlab .mat文件：name.mat, newdmos1.mat, p7.mat, p8.mat。
+
+(2) 在matlab中进行处理 运行 pre_process.m (yl dataset) 或者 pre_process_BIT.m (BIT dataset)
+
+(3) name.mat: 所有视频的名称，共 540*6=3240 (包含训练和测试集) 个 或者 144*6=864 个 (只包含测试集)；
+    newdmos1.mat: 所有CMP视频的分数，共 540*6*18=58320 或者 144*6*18=15552；p7.mat: 432*6=2592, p8.mat: 108*6=648 (BIT: 144*6=864)
+    存放目录：yl: /home/yl/NR-OVQA/BOVQA/lc_data_new 或者 /home/yl/NR-OVQA/BOVQA/bit_data_new
+
+(4) 将所有视频转化为CMP格式，六个面。运行 /home/yl/NR-OVQA/ERP-CMP-master/erpToCmp.py or ero_ToCmp_BIT.py; 540*6=3240 个video 目录，每个视频下300张png。
+
+(5) 主程序：修改 WPFolder.py or WPFolder_BIT.py; Train:SCNN.py; Test: SCNN_test.py or SCNN_test_BIT.py
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+2. VIDEVAL   《UGC-VQA: Benchmarking Blind Video Quality Assessment for User Generated Content》, TIP 2021
+
+## code: /home/yl/VIDEVAL-master; data: /media/yl/yl_8t/data_vqa_BIT/data_BIT_imp_yuv240
+## results: /home/yl/VIDEVAL-master/results
+## envs: host401 -- bvqa
+
+(1) 先准备lc数据库240的xls文件 用于feature提取：TEST_VIDEOS_metadata.xls or TEST_BIT_VIDEOS_metadata.xls
+    格式：列：[videoname, mos, width, height, pixfmt, framerate, nb_frames, bitdepth, bitrate]  108 or 144 行
+    code: /home/yl/bvqa360/creat_lmdb.py中的 videval_make_csv_BIT240() 函数.
+
+(2) 提取视频特征：demo_compute_VIDEVAL_light_feats.m 或者 demo_compute_BIT_VIDEVAL_light_feats.m，得到./features/TEST_VIDEOS_VIDEVAL_light720_6fps_feats.mat.
+
+(3) 然后运行 demo_pred_MOS_pretrained_VIDEVAL_light.py 预测mos.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+3. VGCN      《Blind Omnidirectional Image Quality Assessment with Viewport Oriented Graph Convolutional Networks》, TCSVT 2020
+
+## code: /media/yl/yl_8t/VGCN; data: /media/yl/yl_8t/VGCN/yl_dataset or /media/yl/yl_8t/VGCN/BIT_dataset
+## results: /media/yl/yl_8t/VGCN/yl_dataset/result
+## envs: host401 -- bvqa
+
+(1) FOV selection: 代码位于：/media/yl/yl_8t/VGCN/fov_selection/demo.m or demo_BIT.m，每个ODV，每隔n=6帧取一帧，对该帧预测FOV 20个; 预测的FOV图像， train and test 分开放在
+    train_pth = '/media/yl/yl_8t/VGCN/yl_dataset/yl_dataset_resize_imgtrain' and test_pth = '/media/yl/yl_8t/VGCN/yl_dataset/yl_dataset_resize_imgtest';
+    For BIT dataset: train_pth = '/media/yl/yl_8t/VGCN/BIT_dataset/BIT_dataset_resize_imgtrain' and test_pth = '/media/yl/yl_8t/VGCN/BIT_dataset/BIT_dataset_resize_imgtest';
+
+    质量标签以及A矩阵计算：score就是每一个ODV的dmos; A计算： When we get the selected viewports, if the distance (Great circle destance) between center point
+    of viewport A and viewport B is larger than 45°, then the edge is between the two nodes is 0, otherwise, the edge is set as 1.
+    train and test 标签全放在：label_pth = '/media/yl/yl_8t/VGCN/yl_dataset/yl_dataset_fovall_label'，全是.mat文件;
+    For BIT dataset: label_pth = '/media/yl/yl_8t/VGCN/BIT_dataset/BIT_dataset_fovall_label';
+
+(2) Training: python main.py . dataset 使用 yl_dataset_bvqa360.py 准备数据. 每一个epoch后模型参数存放于 /media/yl/yl_8t/VGCN/yl_dataset/save_models/checkpoint/ ;
+
+(3) Testing: python main.py --skip_training . 加载pre-trained model, 每一个iter预测一个ODV的一帧，存放在 VGCN_dmos_{epoch_num}.txt .
+    For BIT dataset: 运行 main_BIT.py, dataset在 BIT_dataset_bvqa360.py. 用于测试在BIT数据库上的BVQA性能.
+
+(4) 测试：因为此方法是IQA算法，得到了每一帧的score，需要找到最好的帧并且平均，运行 ceshi.py 中的average_best_frame_score_bvqa360_VGCN_yl_dataset() or average_best_frame_score_bvqa360_VGCN_BIT_dataset()
+    VGCN 使用了epoch 22的pkl.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+代码可以参考一下!!!!!!!!!!!!!!!!!! 速度很快 制作video dataset 比较合理
+
+4. V-MEON    《End-to-End Blind Quality Assessment of Compressed Videos Using Deep Neural Networks》, ACM MM 2018
+
+## code: /home/yl/VMEON; data: /media/yl/yl_8t/data_bvqa_lc_resize/data_vqa_yl240 or /media/yl/yl_8t/data_vqa_BIT/data_BIT_imp_yuv240
+## results: /home/yl/VMEON
+## envs: host401 -- vmeon
+
+(1) 运行 Main.py or Main_BIT.py. 输入为yuv,顺序输出分数.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+5. VSFA     《Quality Assessment of In-the-Wild Videos》, ACM MM 2019
+
+## code: /home/yl/VSFA; data: /media/yl/yl_8t/data_bvqa_lc_resize/odv240_mp4 or /media/yl/yl_8t/data_vqa_BIT/data_BIT_imp_mp4240
+## results: /home/yl/VSFA
+## envs: host401 -- vsfa
+
+(1) 运行 test_demo.py or test_BIT_demo.py. 输入为mp4,顺序输出分数。
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+6. NSTSS    《No-Reference Video Quality Assessment Using Natural Spatiotemporal Scene Statistics》, TIP 2020
+
+## code: /home/yl/NSTSS; data: /media/yl/yl_8t/data_vqa_BIT/data_BIT_imp_yuv240/ or /media/yl/yl_8t/data_bvqa_lc_resize/data_vqa_yl240
+## results: yl_dataset-->(1) 3DMSCN: NSTSS_dmos240.txt (2) Gabor: NSTSS_Gabor_dmos240.txt (3) 3DMSCN+Gabor: NSTSS_3D_Gabor_dmos240.txt
+            BIT_dataset--> (1) 3DMSCN: NSTSS_3DMSCN_BIT_dmos240.txt (2) Gabor: NSTSS_Gabor_BIT_dmos240.txt (3) 3DMSCN+Gabor: NSTSS_3D_Gabor_BIT_dmos240.txt
+## envs: /home2/liutie/matlab2018a/bin/matlab
+
+(1) Feature extraction using functions in "FeatureExtraction" folder.
+    (i) 3D-MSCN features using SpatioTemporal_3DMSCN_Features.m
+    (ii) Spatiotemporal Gabor filter based features using SpatioTemporal_I_Features.m and SpatioTemporal_Q_Features.m (both inphase and quadrature)
+
+    注：先提取特征，分三个.m分别提取三种特征。
+
+(2) Performance evaluation using functions in "PerformanceEvaluation" folder.
+    (i) VQA_using_3DMSCN.m evaluates the performance using only 3D-MSCN features.
+    (ii) VQA_using_ST_features.m evaluates the performance using only spatiotemporal Gabor filter-based features.
+    (ii) VQA_using_3DMSCN_and_ST_features.m evaluates the perfomance using 3D-MSCN and spatiotemporal Gabor filter based features.
+
+    注：三种方法分别使用第一种，第二三种 和 一二三结合的特征进行VQA。
+
+(3) 注意的是，在泛化实验 测试BIT数据库性能时，要用之前432个训练视频提取的特征训练SVM，然后使用新的144个视频特征进行测试得到VQA. 详见：BIT_VQA_using_3DMSCN.m 等
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+7. TLVQM    《Two-Level Approach for No-Reference Consumer Video Quality Assessment》,  TIP 2019
+
+## code: /home/yl/TLVQM; data: /home/yl/bvqa_data/data_vqa_yl240 or /media/yl/yl_8t/data_vqa_BIT/data_BIT_imp_yuv240/
+## results: TLVQM_dmos240.txt or TLVQM_BIT_dmos240.txt
+## envs: /home2/liutie/matlab2018a/bin/matlab + 401: bvqa
+
+(1) 提取特征。运行ceshi.m or ceshi_BIT.m，特征保存到 odv_vqa240_features.csv or odv_vqa240_features_BIT.csv.
+
+(2) 质量评估。运行 nr_vqm_train_and_validate_example.py or BIT_nr_vqm_train_and_validate_example.py, 保存结果。
+
+(3) 注意。在泛化实验中，注意要用432个视频提取的特征训练SVM，然后使用新的144个视频特征进行测试得到VQA分数。但由于model_selection.train_test_split函数中test_size只能是0-1，所以结果只有143个，最后一个是自己补上去的。
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+8. MC360IQA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
