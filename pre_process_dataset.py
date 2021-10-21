@@ -1151,50 +1151,6 @@ def BIT_png_test_bvqa360():
 
 
 
-#########################################################################################################################################################
-############## Compared algorithms preparation ##########################
-#########################################################################################################################################################
-
-##########################################  Blind visual quality assessment on 2D or 360 videos #########################################################
-
-#### 1. NR-OVQA 2. VIDEVAL 3. V-MEON 4. VSFA 5. TLVQM 6. NSTSS-3D-MSCN 7. NSTSS-ST_Gabor 8. NSTSS-Plus ############
-
-# 1. NR-OVQA   《Blind quality assessment of omnidirectional videos using spatio-temporal convolutional neural networks》, Optic 2021
-
-# Train and Test:
-
-# ## code: /home/yl/NR-OVQA ; data: /media/yl/yl_8t/data_bvqa_lc_resize/data_NROVQA_cmp_png or /media/yl/yl_8t/data_vqa_BIT/compared_algo_data_process;
-# ## results: /media/yl/yl_8t/data_bvqa_lc_resize/NR-OVQA_models or /media/yl/yl_8t/data_bvqa_lc_resize/NR-OVQA_models/BIT_dataset_results
-
-# (1) 制作训练测试时所需的matlab .mat文件：name.mat, newdmos1.mat, p7.mat, p8.mat。
-
-# (2) 在matlab中进行处理 运行 pre_process.m (yl dataset) 或者 pre_process_BIT.m (BIT dataset)
-
-# (3) name.mat: 所有视频的名称，共 540*6=3240 (包含训练和测试集) 个 或者 144*6=864 个 (只包含测试集)；
-#     newdmos1.mat: 所有CMP视频的分数，共 540*6*18=58320 或者 144*6*18=15552；p7.mat: 432*6=2592, p8.mat: 108*6=648 (BIT: 144*6=864)
-#     存放目录：yl: /home/yl/NR-OVQA/BOVQA/lc_data_new 或者 /home/yl/NR-OVQA/BOVQA/bit_data_new
-
-# (4) 将所有视频转化为CMP格式，六个面。运行 /home/yl/NR-OVQA/ERP-CMP-master/erpToCmp.py or ero_ToCmp_BIT.py; 540*6=3240 个video 目录，每个视频下300张png。
-
-# (5) 主程序：修改 WPFolder.py or WPFolder_BIT.py; Train:SCNN.py; Test: SCNN_test.py or SCNN_test_BIT.py
-
-
-# 2. Videval   《UGC-VQA: Benchmarking Blind Video Quality Assessment for User Generated Content》, TIP 2021
-
-# ## code: /home/yl/VIDEVAL-master; data: /media/yl/yl_8t/data_vqa_BIT/data_BIT_imp_yuv240
-# ## results: /home/yl/VIDEVAL-master/results
-
-# (1) 先准备lc数据库240的xls文件 用于feature提取：TEST_VIDEOS_metadata.xls or TEST_BIT_VIDEOS_metadata.xls
-#     格式：列：[videoname, mos, width, height, pixfmt, framerate, nb_frames, bitdepth, bitrate]  108 or 144 行
-# #     code: /home/yl/bvqa360/creat_lmdb.py中的 videval_make_csv_BIT240() 函数.
-#
-# # (2) 提取视频特征：demo_compute_VIDEVAL_light_feats.m 或者 demo_compute_BIT_VIDEVAL_light_feats.m，得到./features/TEST_VIDEOS_VIDEVAL_light720_6fps_feats.mat.
-#
-# # (3) 然后运行 demo_pred_MOS_pretrained_VIDEVAL_light.py 预测mos.
-
-
-
-
 
 
 
@@ -1229,7 +1185,7 @@ if __name__ == '__main__':
     # BIT_ref_yuv2png_240()
     #BIT_png_test_bvqa360()
 
-    cal_BIT_WSSSIM()
-    #countPSNR_BIT()
+    # cal_BIT_WSSSIM()
+    countPSNR_BIT()
 
     #cal_Y_PSNR_BIT()
