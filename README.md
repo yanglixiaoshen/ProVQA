@@ -76,7 +76,7 @@ python ./evaluate.py
 ```
 
 
-### Evaluate BVQA performance
+## Evaluate BVQA performance
 
 We have evaluate the BVQA performance for 360° Videos by 5 general metrics: PLCC, SROCC, KROCC, RMSE and MAE.
 we employ a 4-order logistic function for fitting the predicted quality scores to their corresponding ground truth, 
@@ -95,14 +95,14 @@ The following tables shows the comparison on BVQA performance between our and ot
 
 <div align="center"><img width="45%" src="https://github.com/yanglixiaoshen/ProVQA/blob/main/images/t2.png" /></div>
 
-### Tips
+## Tips
 
 >**(1) We have summarized the information about how to run the compared algorithms in details, which can be found in the file "compareAlgoPreparation.txt".**<br>
 >**(2) The details about the pre-processing on the ODV-VQA dataset and BIT360 dataset can be found in the file "pre_process_dataset.py".** <br>
 
 
 
-### Citation 
+## Citation 
 
 If this repository can offer you help in your research, please cite the paper:
 
