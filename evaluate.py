@@ -56,35 +56,6 @@ def average_best_frame_score_bvqa360():
     RMSE = np.sqrt(MSE) * 100
     print('PLCC: {}, SROCC: {}, KROCC: {}, RMSE: {}, MAE: {}'.format(cc, srocc, krocc, RMSE, MAE))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
     import importlib
  
