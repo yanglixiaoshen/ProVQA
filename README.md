@@ -4,9 +4,9 @@ Blind VQA for 360° Video via Progressive Learning from Pixels, Frames and Video
 
 
 This repository contains the official PyTorch implementation of the following paper:
-> **Blind VQA for 360° Video via Progressive Learning from Pixels, Frames and Video (IEEE xxxx)**<br>
+> **Blind VQA for 360° Video via Progressive Learning from Pixels, Frames and Video**<br>
 > Li Yang, Mai Xu, YiChen Guo and ShengXi Li (School of Electronic and Information Engineering, Beihang University)<br>
-> **Paper link**: https://xxx. <br>
+> **Paper link**: xxxxxx. <br>
 > **Abstract**: *xxxxxx.* <br>
 > **Note: Since this paper is under review, you can first ask for the paper from me to ease the implementation of this project but you have no rights to use this paper
 > in any purpose. Contact me for accessing my paper (Email: 13021041@buaa.edu.cn)**
