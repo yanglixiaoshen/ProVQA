@@ -61,26 +61,3 @@ def main():
 if __name__ == '__main__':
     main()
 
-"""
-PYTHONPATH="./:${PYTHONPATH}" \
-CUDA_VISIBLE_DEVICES=1,2,3,4,5,6,7 \
-python -m torch.distributed.launch --nproc_per_node=7 --master_port=4324 test.py -opt ../options/test/ml_edvr/ali/0309_our_test_qunliang_enhanced_train_raw_and_lq_to_finetune_edvr.yml --launcher pytorch
-"""
-
-"""
-PYTHONPATH="./:${PYTHONPATH}" \
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
-python -m torch.distributed.launch --nproc_per_node=8 --master_port=4321 test.py -opt ../options/test/ml_edvr/ml_test_EDVR_L_deblurcomp_REDS.yml --launcher pytorch
-"""
-
-""" test esrgan L1
-PYTHONPATH="./:${PYTHONPATH}" \
-CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
-python -m torch.distributed.launch --nproc_per_node=8 --master_port=4321 test.py \
--opt ../options/test/ESRGAN/test_bvqa360.yml --launcher pytorch
-
-
-CUDA_VISIBLE_DEVICES=2 \
-python test.py \
--opt ../options/test/ESRGAN/test_bvqa360.yml
-"""
