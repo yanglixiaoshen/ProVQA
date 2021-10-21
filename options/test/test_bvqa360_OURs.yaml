@@ -1,0 +1,53 @@
+name: 0717_yl_test_BVQA360_Basic_ODV-VQA240
+model_type: BVQA360Model
+scale: 1 #4
+num_gpu: 1  # set num_gpu: 0 for cpu mode
+manual_seed: 0
+
+
+datasets:
+  test:
+    name: odv-vqa240_test
+    type: ODVVQA240DatasetTest #VideoTestDataset
+    dataroot_lq: /media/yl/yl_8t/data_bvqa_lc_resize/data_all_test_png # 108 ODVs with PNG format in testing set, you can download it from my Dropbox link.
+    test_odv480_info_file: /home/yl/bvqa360_testhz/data/test_240ODV.txt # You can find in this project.
+    io_backend:
+      type: disk
+    num_frame: 6
+    cache_data: false
+    #num_frame: 5
+    padding: replicate
+    result_pth: /media/yl/yl_8t/bvqa360_experiments/test_dmos/ # The path for saving the BVQA results.
+    test_dmos: BVQA360_dmos240_26400.txt # The testing BVQA results for each frame, you can download it from my Dropbox link.
+
+# network structures
+network_g:
+  type: BVQA360v240
+  in_channel: 32
+  out_channels: [64, 64, 64]
+  res_blocks: [3, 4, 6]
+  spa3_in: 64
+  spa3_out: 32
+  comb_in: 64
+  motion_comb1: 32
+  motion_comb2: 64
+  motion_in: 6
+  layers: [2, 2, 2, 2]
+  nonlocal_in: 32
+  mos_in: 32
+  num_frame: 6
+  fc_dim1: 20
+test_odv480_info_file:
+# path
+path:
+  pretrain_network_g: /media/yl/yl_8t/bvqa360_experiments/saved_model/net_g_26400.pth # Download from the Dropbox link
+  strict_load_g: true
+  experiment_media: /media/yl/yl_8t/bvqa360_experiments
+
+# validation settings
+val:
+  save_img: false
+  suffix: ~  # add suffix to saved images, if None, use exp name
+  metrics: ~
+
+# CUDA_VISIBLE_DEVICES=3  python test.py -opt /home/yl/bvqa360/options/test/test_bvqa360.yml
