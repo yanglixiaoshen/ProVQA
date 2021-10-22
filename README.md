@@ -54,7 +54,7 @@ satisfy your experimental environment, for example, the dataset path should be m
 For the final BVQA result, we choose the trained model at iter=26400, which can be download at [saved_model](https://www.dropbox.com/s/jxlps73yadwixr0/net_g_26400.pth?dl=0). Moreover, 
 the corresponding training state can be obtained at [saved_optimized_state](https://www.dropbox.com/s/g2favdkl2s1dbys/26400.state?dl=0).
 
-### Test the ProVQA
+### Testing the ProVQA
 
 Download the [saved_model](https://www.dropbox.com/s/jxlps73yadwixr0/net_g_26400.pth?dl=0) and put it in your own experimental
 directory. Then, run the following code for evaluating the BVQA performance over the testing set [ODV-VQA_TEST](https://www.dropbox.com/s/6hd96pfxg1yflgd/data_all_test_png.zip?dl=0).
