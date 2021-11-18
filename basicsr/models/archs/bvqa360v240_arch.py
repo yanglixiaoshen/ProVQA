@@ -517,11 +517,11 @@ class BVQA360v240(nn.Module):
 if __name__ == '__main__':
     os.environ["CUDA_VISIBLE_DEVICES"] = "0"
     while True:
-        img = torch.randn(1, 18, 3, 240, 480) #
+        img = torch.randn(6, 18, 3, 240, 480) #
         net = BVQA360v240(in_channel=32, out_channels=(64, 64, 64), res_blocks=(3, 4, 6), spa3_in=64, spa3_out=32, comb_in=64,
                            motion_comb1=32, motion_comb2=64, motion_in=6, layers=(2, 2, 2, 2),
                            nonlocal_in=32,
-                           mos_in=32, num_frame=5, fc_dim1=20)
+                           mos_in=32, num_frame=6, fc_dim1=20)
         #print(net)
         score = net(img)
 
