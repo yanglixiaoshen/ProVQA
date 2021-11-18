@@ -1,6 +1,6 @@
 # Blind visual quality assessment on omnidirectional or 360 video (ProVQA)
 
-Blind VQA for 360° Video via Progressive Learning from Pixels, Frames and Video
+Blind VQA for 360° Video via Progressively Learning from Pixels, Frames and Video
 
 
 This repository contains the official PyTorch implementation of the following paper:
