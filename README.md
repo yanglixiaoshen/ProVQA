@@ -5,11 +5,11 @@ Blind VQA for 360° Video via Progressive Learning from Pixels, Frames and Video
 
 This repository contains the official PyTorch implementation of the following paper:
 > **Blind VQA for 360° Video via Progressive Learning from Pixels, Frames and Video**<br>
-> Li Yang, Mai Xu, YiChen Guo and ShengXi Li (School of Electronic and Information Engineering, Beihang University)<br>
+> Li Yang, Mai Xu, ShengXi Li, YiChen Guo and Zulin Wang  (School of Electronic and Information Engineering, Beihang University)<br>
 > **Paper link**: xxxxxx. <br>
-> **Abstract**: *xxxxxx.* <br>
+> **Abstract**: *Blind visual quality assessment (BVQA) on 360° video plays a key role in optimizing immersive multimedia systems. When assessing the quality of 360° video, human tends to perceive its quality degradation from the viewport-based spatial distortion of each spherical frame to motion artifact across adjacent frames, ending with the video-level quality score, i.e., a progressive quality assessment paradigm. However, the existing BVQA approaches for 360° video neglect this paradigm. In this paper, we take into account the progressive paradigm of human perception towards spherical video quality, and thus propose a novel BVQA approach (namely ProVQA) for 360° video via progressively learning from pixels, frames and video. Corresponding to the progressive learning of pixels, frames and video, three sub-nets are designed in our ProVQA approach, i.e., the spherical perception aware quality prediction (SPAQ), motion perception aware quality prediction (MPAQ) and multi-frame temporal non-local (MFTN) sub-nets. The SPAQ sub-net first models the spatial quality degradation based on spherical  perception  mechanism of human. Then, by exploiting motion cues across adjacent frames, the MPAQ sub-net properly incorporates motion contextual information for quality assessment on 360° video. Finally, the MFTN sub-net aggregates multi-frame quality degradation to yield the final quality score, via exploring long-term quality correlation from multiple frames. The experiments validate that our approach significantly advances the state-of-the-art BVQA performance on 360° video over two datasets, the code of which has been public in \url{https://github.com/yanglixiaoshen/ProVQA.}* <br>
 > **Note: Since this paper is under review, you can first ask for the paper from me to ease the implementation of this project but you have no rights to use this paper
-> in any purpose. Contact me for accessing my paper (Email: 13021041@buaa.edu.cn)**
+> in any purpose. Unauthorized use of this article for all activities will be investigated for legal responsibility. Contact me for accessing my paper (Email: 13021041@buaa.edu.cn)**
 
 ## Preparation
 
