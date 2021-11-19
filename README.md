@@ -125,6 +125,13 @@ If this repository can offer you help in your research, please cite the paper:
 
 ```
 
+## Acknowledgement
+
+1. <https://github.com/xinntao/EDVR>
+2. <https://github.com/AlexHex7/Non-local_pytorch>
+3. <https://github.com/ChiWeiHsiao/SphereNet-pytorch>
+
+
 Please enjoy it and best wishes. Plese contact with me if you have any questions about the ProVQA approach.
 
 My email address is 13021041[at]buaa[dot]edu[dot]cn
