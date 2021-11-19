@@ -91,7 +91,7 @@ Run the code [bvqa360_metric](https://www.dropbox.com/s/qfu1n4uua82t843/bvqa360_
 
 ```shell
 
-./bvqa360_metric.m
+./bvqa360_metric1.m
 
 ```
 As such, you can get the final results of PLCC=0.9209, SROCC=0.9236, KROCC=0.7760, RMSE=4.6165 and MAE=3.1136.
