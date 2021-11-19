@@ -112,7 +112,18 @@ The following tables shows the comparison on BVQA performance between our and ot
 
 If this repository can offer you help in your research, please cite the paper:
 
-It will be released in the near future. 
+```latex
+
+@misc{yang2021blind,
+      title={Blind VQA on 360{\deg} Video via Progressively Learning from Pixels, Frames and Video}, 
+      author={Li Yang and Mai Xu and Shengxi Li and Yichen Guo and Zulin Wang},
+      year={2021},
+      eprint={2111.09503},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+
+```
 
 Please enjoy it and best wishes. Plese contact with me if you have any questions about the ProVQA approach.
 
