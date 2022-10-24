@@ -23,7 +23,7 @@ Second, install all dependencies by running the following command:
 ```shell
 pip install -r ProVQA_environment.txt
 ```
-If the above installation don't work, you can download the [environment file](https://www.dropbox.com/s/eu429a39e6tlzyi/bvqa.tar.gz?dl=0) with .tar.gz format. Then, unzip the file into a directory (e.g., pro_env) in your home directiory and activate the environment every time before you run the code.
+If the above installation don't work, you can download the [environment file](https://www.dropbox.com/s/eu429a39e6tlzyi/bvqa.tar.gz?dl=0) with .tar.gz format. Then, unzip the file into a directory (e.g., pro_env) in your home directory and activate the environment every time before you run the code.
 
 ```shell
 source activate /home/xxx/pro_env
