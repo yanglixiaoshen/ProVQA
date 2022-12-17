@@ -1,4 +1,4 @@
-# Blind visual quality assessment on omnidirectional or 360 video (ProVQA)
+# (TIP 2022) Blind visual quality assessment on omnidirectional or 360 video (ProVQA)
 
 Blind VQA for 360° Video via Progressively Learning from Pixels, Frames and Video
 
