@@ -114,13 +114,12 @@ If this repository can offer you help in your research, please cite the paper:
 
 ```latex
 
-@misc{yang2021blind,
-      title={Blind VQA on 360{\deg} Video via Progressively Learning from Pixels, Frames and Video}, 
-      author={Li Yang and Mai Xu and Shengxi Li and Yichen Guo and Zulin Wang},
-      year={2021},
-      eprint={2111.09503},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
+@article{yang2022blind,
+  title={Blind VQA on 360° Video via Progressively Learning from Pixels, Frames and Video},
+  author={Yang, Li and Xu, Mai and Li, Shengxi and Guo, Yichen and Wang, Zulin},
+  journal={IEEE Transactions on Image Processing},
+  year={2022},
+  publisher={IEEE}
 }
 
 ```
